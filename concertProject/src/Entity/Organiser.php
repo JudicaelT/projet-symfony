@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrganiserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,7 +22,12 @@ class Organiser
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $first_name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $last_name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -32,19 +39,41 @@ class Organiser
      */
     private $mail;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Concert::class, mappedBy="organiser", orphanRemoval=true)
+     */
+    private $concerts;
+
+    public function __construct()
+    {
+        $this->concerts = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->name;
+        return $this->first_name;
     }
 
-    public function setName(string $name): self
+    public function setFirstName(string $first_name): self
     {
-        $this->name = $name;
+        $this->first_name = $first_name;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->last_name;
+    }
+
+    public function setLastName(string $last_name): self
+    {
+        $this->last_name = $last_name;
 
         return $this;
     }
@@ -69,6 +98,36 @@ class Organiser
     public function setMail(string $mail): self
     {
         $this->mail = $mail;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Concert[]
+     */
+    public function getConcerts(): Collection
+    {
+        return $this->concerts;
+    }
+
+    public function addConcert(Concert $concert): self
+    {
+        if (!$this->concerts->contains($concert)) {
+            $this->concerts[] = $concert;
+            $concert->setOrganiser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConcert(Concert $concert): self
+    {
+        if ($this->concerts->removeElement($concert)) {
+            // set the owning side to null (unless already changed)
+            if ($concert->getOrganiser() === $this) {
+                $concert->setOrganiser(null);
+            }
+        }
 
         return $this;
     }

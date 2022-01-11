@@ -9,14 +9,11 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-    {% for concert in list_concert %}
-        <li>{{ concert }}</li>
-    {% endfor %}
-    This friendly message is coming from:
+    <h1>This is a list of concert :</h1>
     <ul>
-        <li>Your controller at <code><a href="{{ '/home/licence/terrissej/public_html/concertProject/src/Controller/ConcertController.php'|file_link(0) }}">src/Controller/ConcertController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/licence/terrissej/public_html/concertProject/templates/concert/index.html.twig'|file_link(0) }}">templates/concert/index.html.twig</a></code></li>
+        {% for concert in listOfConcerts %}
+           <li>{{ concert }}</li>
+        {% endfor %}
     </ul>
 </div>
 {% endblock %}

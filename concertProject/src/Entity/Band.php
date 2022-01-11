@@ -25,13 +25,30 @@ class Band
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Artist::class, inversedBy="bands")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $artists;
+    private $logo;
+
+    /**
+     * @ORM\OneToMany(targetEntity=member::class, mappedBy="member_id")
+     */
+    private $band_id;
+
+    /**
+     * @ORM\OneToMany(targetEntity=member::class, mappedBy="band")
+     */
+    private $member;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Concert::class, mappedBy="band")
+     */
+    private $concerts;
 
     public function __construct()
     {
-        $this->artists = new ArrayCollection();
+        $this->band_id = new ArrayCollection();
+        $this->member = new ArrayCollection();
+        $this->concerts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -51,28 +68,72 @@ class Band
         return $this;
     }
 
-    /**
-     * @return Collection|Artist[]
-     */
-    public function getArtists(): Collection
+    public function getLogo(): ?string
     {
-        return $this->artists;
+        return $this->logo;
     }
 
-    public function addArtist(Artist $artist): self
+    public function setLogo(?string $logo): self
     {
-        if (!$this->artists->contains($artist)) {
-            $this->artists[] = $artist;
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|member[]
+     */
+    public function getMember(): Collection
+    {
+        return $this->member;
+    }
+
+    public function addMember(member $member): self
+    {
+        if (!$this->member->contains($member)) {
+            $this->member[] = $member;
+            $member->setBand($this);
         }
 
         return $this;
     }
 
-    public function removeArtist(Artist $artist): self
+    public function removeMember(member $member): self
     {
-        $this->artists->removeElement($artist);
+        if ($this->member->removeElement($member)) {
+            // set the owning side to null (unless already changed)
+            if ($member->getBand() === $this) {
+                $member->setBand(null);
+            }
+        }
 
         return $this;
     }
 
+    /**
+     * @return Collection|Concert[]
+     */
+    public function getConcerts(): Collection
+    {
+        return $this->concerts;
+    }
+
+    public function addConcert(Concert $concert): self
+    {
+        if (!$this->concerts->contains($concert)) {
+            $this->concerts[] = $concert;
+            $concert->addBand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConcert(Concert $concert): self
+    {
+        if ($this->concerts->removeElement($concert)) {
+            $concert->removeBand($this);
+        }
+
+        return $this;
+    }
 }

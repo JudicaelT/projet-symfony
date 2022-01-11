@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ConcertRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,39 @@ class Concert
      * @ORM\Column(type="date")
      */
     private $date_end;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $logo;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=follower::class, inversedBy="concerts")
+     */
+    private $followers;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=band::class, inversedBy="concerts")
+     */
+    private $band;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=organiser::class, inversedBy="concerts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $organiser;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=hall::class, inversedBy="concerts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $hall;
+
+    public function __construct()
+    {
+        $this->followers = new ArrayCollection();
+        $this->band = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +104,90 @@ class Concert
     public function setDateEnd(\DateTimeInterface $date_end): self
     {
         $this->date_end = $date_end;
+
+        return $this;
+    }
+
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(?string $logo): self
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|follower[]
+     */
+    public function getFollowers(): Collection
+    {
+        return $this->followers;
+    }
+
+    public function addFollower(follower $follower): self
+    {
+        if (!$this->followers->contains($follower)) {
+            $this->followers[] = $follower;
+        }
+
+        return $this;
+    }
+
+    public function removeFollower(follower $follower): self
+    {
+        $this->followers->removeElement($follower);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|band[]
+     */
+    public function getBand(): Collection
+    {
+        return $this->band;
+    }
+
+    public function addBand(band $band): self
+    {
+        if (!$this->band->contains($band)) {
+            $this->band[] = $band;
+        }
+
+        return $this;
+    }
+
+    public function removeBand(band $band): self
+    {
+        $this->band->removeElement($band);
+
+        return $this;
+    }
+
+    public function getOrganiser(): ?organiser
+    {
+        return $this->organiser;
+    }
+
+    public function setOrganiser(?organiser $organiser): self
+    {
+        $this->organiser = $organiser;
+
+        return $this;
+    }
+
+    public function getHall(): ?hall
+    {
+        return $this->hall;
+    }
+
+    public function setHall(?hall $hall): self
+    {
+        $this->hall = $hall;
 
         return $this;
     }

@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\HallRepository;
+use App\Repository\FollowerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=HallRepository::class)
+ * @ORM\Entity(repositoryClass=FollowerRepository::class)
  */
-class Hall
+class Follower
 {
     /**
      * @ORM\Id
@@ -22,20 +22,20 @@ class Hall
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $available_tickets;
+    private $first_name;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $address;
+    private $last_name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Concert::class, mappedBy="hall")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $mail;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Concert::class, mappedBy="followers")
      */
     private $concerts;
 
@@ -49,38 +49,38 @@ class Hall
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->name;
+        return $this->first_name;
     }
 
-    public function setName(string $name): self
+    public function setFirstName(string $first_name): self
     {
-        $this->name = $name;
+        $this->first_name = $first_name;
 
         return $this;
     }
 
-    public function getAvailableTickets(): ?int
+    public function getLastName(): ?string
     {
-        return $this->available_tickets;
+        return $this->last_name;
     }
 
-    public function setAvailableTickets(?int $available_tickets): self
+    public function setLastName(string $last_name): self
     {
-        $this->available_tickets = $available_tickets;
+        $this->last_name = $last_name;
 
         return $this;
     }
 
-    public function getAddress(): ?string
+    public function getMail(): ?string
     {
-        return $this->address;
+        return $this->mail;
     }
 
-    public function setAddress(string $address): self
+    public function setMail(string $mail): self
     {
-        $this->address = $address;
+        $this->mail = $mail;
 
         return $this;
     }
@@ -97,7 +97,7 @@ class Hall
     {
         if (!$this->concerts->contains($concert)) {
             $this->concerts[] = $concert;
-            $concert->setHall($this);
+            $concert->addFollower($this);
         }
 
         return $this;
@@ -106,10 +106,7 @@ class Hall
     public function removeConcert(Concert $concert): self
     {
         if ($this->concerts->removeElement($concert)) {
-            // set the owning side to null (unless already changed)
-            if ($concert->getHall() === $this) {
-                $concert->setHall(null);
-            }
+            $concert->removeFollower($this);
         }
 
         return $this;
