@@ -8,13 +8,16 @@ use App\Entity\Band;
 
 class BandFixture extends Fixture
 {
+    public const band_reference = 'band';
     public function load(ObjectManager $manager): void
     {
-        $band1 = new Band();
-        $band1 = setName('Frank Sinatra');
-        $band1->addArtist($this->getReference(ArtistFixture::artist1_reference));
+        $band = new Band();
+        $band->setName('David Bowie')
+             ->setLogo('img/testImg.jpg');
 
-        $manager->persist($band1);
+        $manager->persist($band);
         $manager->flush();
+
+        $this->addReference(self::band_reference, $band);
     }
 }

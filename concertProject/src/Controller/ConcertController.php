@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ConcertController extends AbstractController
 {
+
     /**
      * @Route("/concert", name="concert")
      */
@@ -18,7 +19,6 @@ class ConcertController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/list", name="list")
      */
@@ -26,7 +26,7 @@ class ConcertController extends AbstractController
     {
         return $this->render('concert/list.html.twig', [
             'controller_name' => 'ConcertController',
-            'list_concert' => ['Charlie', 'Toto']
+            'listOfConcerts' => ['HellFest', 'Toto'],
         ]);
     }
 }
