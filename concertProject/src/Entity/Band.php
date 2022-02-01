@@ -30,25 +30,21 @@ class Band
     private $logo;
 
     /**
-     * @ORM\OneToMany(targetEntity=member::class, mappedBy="member_id")
-     */
-    private $band_id;
-
-    /**
-     * @ORM\OneToMany(targetEntity=member::class, mappedBy="band")
-     */
-    private $member;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Concert::class, mappedBy="band")
+     * @ORM\ManyToMany(targetEntity=Concert::class, mappedBy="band", cascade={"persist"})
      */
     private $concerts;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Member::class, mappedBy="band", orphanRemoval=true, fetch="EAGER")
+     */
+    private $members;
 
     public function __construct()
     {
         $this->band_id = new ArrayCollection();
-        $this->member = new ArrayCollection();
         $this->concerts = new ArrayCollection();
+        $this->band = new ArrayCollection();
+        $this->members = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -81,36 +77,6 @@ class Band
     }
 
     /**
-     * @return Collection|member[]
-     */
-    public function getMember(): Collection
-    {
-        return $this->member;
-    }
-
-    public function addMember(member $member): self
-    {
-        if (!$this->member->contains($member)) {
-            $this->member[] = $member;
-            $member->setBand($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMember(member $member): self
-    {
-        if ($this->member->removeElement($member)) {
-            // set the owning side to null (unless already changed)
-            if ($member->getBand() === $this) {
-                $member->setBand(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Concert[]
      */
     public function getConcerts(): Collection
@@ -136,4 +102,35 @@ class Band
 
         return $this;
     }
+
+    /**
+     * @return Collection|Member[]
+     */
+    public function getMembers(): Collection
+    {
+        return $this->members;
+    }
+
+    public function addMember(Member $member): self
+    {
+        if (!$this->members->contains($member)) {
+            $this->members[] = $member;
+            $member->setBand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMember(Member $member): self
+    {
+        if ($this->members->removeElement($member)) {
+            // set the owning side to null (unless already changed)
+            if ($member->getBand() === $this) {
+                $member->setBand(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

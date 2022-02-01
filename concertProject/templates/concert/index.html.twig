@@ -3,17 +3,118 @@
 {% block title %}Hello ConcertController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/concertProject/src/Controller/ConcertController.php'|file_link(0) }}">src/Controller/ConcertController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/concertProject/templates/concert/index.html.twig'|file_link(0) }}">templates/concert/index.html.twig</a></code></li>
-    </ul>
+<div class="row px-0 gx-0 w-100 vh-100 overflow-hidden" id="first-section">
+  <div class="col">
+    <video id="MainPageVideo" class="background-media" autoplay muted loop>
+      <source src="{{ asset('videos/MainPageVideo.mp4') }}" type="video/mp4">
+    </video>
+  </div>
 </div>
+
+<div class="row w-75 py-5 mx-auto" id="second-section">
+  <div class="col-4" id="most-awaited">
+    <div class="card shadow bg-greyblack text-center rounded-0">
+      <h5 class="card-title py-3">
+        <p class="mb-0 letter-spacing">MOST AWAITED</p>
+      </h5>
+      <img src="{{ asset('img/placeholder.png') }}" class="card-img-top" alt="...">
+      <div class="d-flex justify-content-center align-items-center h-0">
+        <a href="#" class="btn p-3 rounded-circle bg-light shadow position-absolute">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-play-fill text-burple" viewBox="0 0 16 16">
+            <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+          </svg>
+        </a>
+      </div>
+      <p class="card-text py-5">This is a text title</p>
+    </div>
+  </div>
+
+  <div class="col-8 ps-5">
+    <div class="d-flex align-items-center">
+      <hr class="hyphen me-4"> <h2>About ConcertName</h2>
+    </div>
+    <small class="badge bg-secondary">Date : 2022-12-10 to 2022-12-10</small> 
+    <small class="badge bg-secondary">Organiser : Judicaël Terrisse</small>
+    <small class="badge bg-secondary">At : Sale Polivalente, Arles</small>
+    <div class="row px-0 gx-0 my-4 bg-greyblack shadow">
+      <div class="col-2">
+        <img class="img-fluid" src="{{ asset('img/placeholder.png') }}" alt="">
+      </div>
+      <div class="col-8 px-3 py-2">
+        <h5>BandName</h5>
+        <small>Name -</small>
+        <small>Name -</small>
+        <small>Name -</small>
+        <small>Name</small>
+      </div>
+      <div class="col-2 d-flex justify-content-center align-items-center">
+        <a href="#" class="btn bg-burple">Show</a>
+      </div>
+    </div>
+    <div class="row px-0 gx-0 my-4 bg-greyblack shadow">
+      <div class="col-2">
+        <img class="img-fluid" src="{{ asset('img/placeholder.png') }}" alt="">
+      </div>
+      <div class="col-8 px-3 py-2">
+        <h5>BandName</h5>
+        <small>Name -</small>
+        <small>Name -</small>
+        <small>Name -</small>
+        <small>Name</small>
+      </div>
+      <div class="col-2 d-flex justify-content-center align-items-center">
+        <a href="#" class="btn bg-burple">Show</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row w-100 py-5 mx-auto text-center banner-paralax" id="third-section">
+  <div class="col-9 mx-auto">
+    <h2>Check Out Our Concerts</h2>
+    <hr class="hyphen mx-auto">
+  </div>
+</div>
+<div class="row w-100 py-5 mx-auto">
+  <div class="col-7 bg-greyblack shadow card-concert mx-auto">
+    <div class="row">
+      <div class="col-4 offset-x-1 my-5 square overflow-hidden d-flex justify-content-center align-items-center">
+          <img src="{{ asset('img/placeholder.png') }}" class="h-100" alt="...">
+          <h3 class="position-absolute">Title</h3>
+      </div>
+      <div class="col-4 offset-x-1 my-5 square overflow-hidden d-flex justify-content-center align-items-center">
+          <img src="{{ asset('img/placeholder.png') }}" class="h-100" alt="...">
+          <h3 class="position-absolute">Title</h3>
+      </div>
+      <div class="col-4 offset-x-1 my-5 square overflow-hidden d-flex justify-content-center align-items-center">
+          <img src="{{ asset('img/placeholder.png') }}" class="h-100" alt="...">
+          <h3 class="position-absolute">Title</h3>
+      </div>
+      <div class="col-4 offset-x-1 my-5 square overflow-hidden d-flex justify-content-center align-items-center">
+          <img src="{{ asset('img/placeholder.png') }}" class="h-100" alt="...">
+          <h3 class="position-absolute">Title</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+    document.getElementById('MainPageVideo').playbackRate = 0.75;
+
+
+    resizeSquares();
+    window.addEventListener('resize', resizeSquares);
+
+    function resizeSquares() {
+      let squares = document.querySelectorAll('.square');
+
+      squares.forEach(function(square) {
+        square.style.height = square.offsetWidth+"px";
+      });
+    }
+    
+</script>
 {% endblock %}

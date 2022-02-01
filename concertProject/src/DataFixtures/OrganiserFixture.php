@@ -14,7 +14,8 @@ class OrganiserFixture extends Fixture
         $organiser->setFirstName('John')
                ->setLastName('Doe')
                ->setPhone('0636730017')
-               ->setMail('john.doe@gmail.com');
+               ->setMail('john.doe@gmail.com')
+               ->setPassword(md5('pass123456'));
 
         $manager->persist($organiser);
         $manager->flush();
