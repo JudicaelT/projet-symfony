@@ -6,6 +6,8 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\DataFixtures\OrganiserFixture;
 use App\DataFixtures\HallFixture;
+use App\DataFixtures\BandFixture;
+use App\DataFixtures\FollowerFixture;
 use App\Entity\Concert;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;     // We use this to load 'OrganiserFixture' and 'HallFixture' first
 

@@ -40,23 +40,24 @@ class Concert
     private $logo;
 
     /**
-     * @ORM\ManyToMany(targetEntity=follower::class, inversedBy="concerts")
+     * @ORM\ManyToMany(targetEntity=Follower::class, inversedBy="concerts")
      */
     private $followers;
 
     /**
-     * @ORM\ManyToMany(targetEntity=band::class, inversedBy="concerts")
+     * @ORM\ManyToMany(targetEntity=Band::class, inversedBy="concerts")
+     * @ORM\JoinTable(name="concert_band")
      */
     private $band;
 
     /**
-     * @ORM\ManyToOne(targetEntity=organiser::class, inversedBy="concerts")
+     * @ORM\ManyToOne(targetEntity=Organiser::class, inversedBy="concerts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $organiser;
 
     /**
-     * @ORM\ManyToOne(targetEntity=hall::class, inversedBy="concerts")
+     * @ORM\ManyToOne(targetEntity=Hall::class, inversedBy="concerts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $hall;
@@ -121,14 +122,14 @@ class Concert
     }
 
     /**
-     * @return Collection|follower[]
+     * @return Collection|Follower[]
      */
     public function getFollowers(): Collection
     {
         return $this->followers;
     }
 
-    public function addFollower(follower $follower): self
+    public function addFollower(Follower $follower): self
     {
         if (!$this->followers->contains($follower)) {
             $this->followers[] = $follower;
@@ -137,7 +138,7 @@ class Concert
         return $this;
     }
 
-    public function removeFollower(follower $follower): self
+    public function removeFollower(Follower $follower): self
     {
         $this->followers->removeElement($follower);
 
@@ -145,14 +146,14 @@ class Concert
     }
 
     /**
-     * @return Collection|band[]
+     * @return Collection|Band[]
      */
     public function getBand(): Collection
     {
         return $this->band;
     }
 
-    public function addBand(band $band): self
+    public function addBand(Band $band): self
     {
         if (!$this->band->contains($band)) {
             $this->band[] = $band;
@@ -161,31 +162,31 @@ class Concert
         return $this;
     }
 
-    public function removeBand(band $band): self
+    public function removeBand(Band $band): self
     {
         $this->band->removeElement($band);
 
         return $this;
     }
 
-    public function getOrganiser(): ?organiser
+    public function getOrganiser(): ?Organiser
     {
         return $this->organiser;
     }
 
-    public function setOrganiser(?organiser $organiser): self
+    public function setOrganiser(?Organiser $organiser): self
     {
         $this->organiser = $organiser;
 
         return $this;
     }
 
-    public function getHall(): ?hall
+    public function getHall(): ?Hall
     {
         return $this->hall;
     }
 
-    public function setHall(?hall $hall): self
+    public function setHall(?Hall $hall): self
     {
         $this->hall = $hall;
 

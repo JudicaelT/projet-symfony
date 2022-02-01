@@ -38,7 +38,12 @@ class Member
     private $role;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Band::class, inversedBy="member")
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Band::class, inversedBy="members", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $band;
@@ -92,6 +97,18 @@ class Member
     public function setRole(string $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

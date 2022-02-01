@@ -1,0 +1,99 @@
+@font-face {
+    font-family: lato;
+    src: url(../fonts/Lato-Regular.ttf);
+}
+
+@font-face {
+    font-family: lato-bold;
+    src: url(../fonts/Lato-Bold.ttf);
+    font-weight: bold;
+}
+
+* {
+    font-family: lato;
+}
+
+*.fw-bold {
+    font-family: lato-bold;
+}
+
+.letter-spacing {
+    letter-spacing: 5px;
+}
+
+#header {
+    z-index: 100;
+}
+
+.background-media {
+    filter: brightness(0.5);
+    z-index: -1;
+}
+
+#most-awaited {
+    margin-top: -115px;
+}
+
+#most-awaited p {
+    padding-top: 5px;
+    font-family: lato;
+}
+
+.bg-deepgrey {
+    background-color: #23272A !important;
+}
+
+.bg-greyblack {
+    background-color: #2f3135 !important;
+}
+
+.bg-burple {
+    color: #fff !important;
+    background-color: #7289DA !important;
+    border-color: #7289DA !important;
+}
+
+.text-burple {
+    color: #7289DA;
+}
+
+.hyphen {
+    width: 50px;
+    height: 3px !important;
+}
+
+.banner-paralax {
+    min-height: 350px;
+    background-image: linear-gradient(#00000050, #00000050), url("../img/concertBanner.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.offset-x-1 {
+    margin-left: 8.33333333%;
+    margin-right: 8.33333333%;
+}
+
+.card-concert {
+    margin-top: -250px !important;
+    z-index: 1;
+}
+
+.square h3 {
+    opacity: 0%;
+    transition: 0.3s;
+}
+
+.square:hover h3 {
+    opacity: 100%;
+}
+
+.square img{
+    transition: 0.3s;
+}
+
+.square:hover img {
+    filter: brightness(0.5);
+}
