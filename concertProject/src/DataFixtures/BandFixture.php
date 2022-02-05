@@ -13,7 +13,7 @@ class BandFixture extends Fixture
     {
         $band = new Band();
         $band->setName('David Bowie')
-             ->setLogo('img/testImg.jpg');
+             ->setLogo('testImg.jpg');
 
         $manager->persist($band);
         $manager->flush();

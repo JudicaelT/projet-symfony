@@ -14,7 +14,9 @@ class HallFixture extends Fixture
         $hall = new Hall();
         $hall->setName('Hall of fame')
                ->setAvailableTickets(400)
-               ->setAddress('460, street of fame');
+               ->setAddress('460, street of fame')
+               ->setCity('Reims')
+               ->setCountry('France');
 
         $manager->persist($hall);
         $manager->flush();

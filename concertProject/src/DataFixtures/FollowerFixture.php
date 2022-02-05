@@ -11,10 +11,12 @@ class FollowerFixture extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+
         $follower = new Follower();
         $follower->setFirstName('Toto')
                  ->setLastName('Zero')
-                 ->setMail('toto0@outlook.com');
+                 ->setMail('toto0@outlook.com')
+                 ->setPassword(md5('pass'));
 
         $manager->persist($follower);
         $manager->flush();

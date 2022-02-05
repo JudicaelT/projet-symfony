@@ -43,7 +43,7 @@ class Member
     private $picture;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Band::class, inversedBy="members", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity=Band::class, inversedBy="members")
      * @ORM\JoinColumn(nullable=false)
      */
     private $band;

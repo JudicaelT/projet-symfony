@@ -16,7 +16,7 @@
             <div class="card h-100 py-3 p-4 border-0 shadow">
                 <img class="img-fluid" src="{{ asset(band.logo) }}">
                 <h2 class="my-3">{{ band.name }}</h2>
-                <a class="btn btn-primary" href="{{ band.id }}">SHOW</a>
+                <a class="btn btn-primary" href="{{ path('band_show', { 'id': band.id }) }}">SHOW</a>
             </div>
         </div>
         {% endfor %}

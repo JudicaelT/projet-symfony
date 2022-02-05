@@ -19,37 +19,37 @@
         {% endblock %}
     </head>
     <body class="bg-deepgrey text-light">
-        <div class="container-fluid px-0">
-            <div class="row w-100 gx-0 px-0 position-fixed" id="header">
-                <div class="col px-0">
-                    <nav class="navbar navbar-light border-bottom border-light">
-                        <ul class="navbar-nav mx-auto flex-row justify-content-center align-items-center">
-                            <li class="nav-item fw-bold px-3">
-                                <a class="nav-link text-light active" aria-current="page" href="#">Home</a>
-                            </li>
-                            <li class="nav-item fw-bold px-3">
-                                <a class="nav-link text-light" aria-current="page" href="#">Login</a>
-                            </li>
+        <div class="row fixed-top" id="header">
+            <div class="col px-0">
+                <nav class="navbar navbar-light border-bottom border-light">
+                    <ul class="navbar-nav mx-auto flex-row justify-content-center align-items-center">
+                        <li class="nav-item fw-bold px-3">
+                            <a class="nav-link text-light" aria-current="page" href="{{ path('concert') }}">Home</a>
+                        </li>
+                        <li class="nav-item fw-bold px-3">
+                            <a class="nav-link text-light" aria-current="page" href="#">Login</a>
+                        </li>
 
-                            <li class="nav-item px-5 w-25">
-                                <a class="navbar-brand" href="#">
-                                    <img class="img-fluid" src="{{ asset('img/logo.png') }}" alt="logo">
-                                </a>
-                            </li>
+                        <li class="nav-item px-5 w-25">
+                            <a class="navbar-brand" href="{{ path('concert') }}">
+                                <img class="img-fluid" src="{{ asset('img/logo.png') }}" alt="logo">
+                            </a>
+                        </li>
 
-                            <li class="nav-item fw-bold px-3">
-                                <a class="nav-link text-light" aria-current="page" href="#">Concerts</a>
-                            </li>
-                            <li class="nav-item fw-bold px-3">
-                                <a class="nav-link text-light" aria-current="page" href="#">Bands</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>   
+                        <li class="nav-item fw-bold px-3">
+                            <a class="nav-link text-light" aria-current="page" href="{{ path('concerts') }}">Concerts</a>
+                        </li>
+                        <li class="nav-item fw-bold px-3">
+                            <a class="nav-link text-light" aria-current="page" href="{{ path('bands') }}">Bands</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="container-fluid px-0">   
         {% block body %}{% endblock %}
             <div class="row w-100 gx-0 py-4 px-0 text-center bg-greyblack" id="footer">
-                <div class="col px-0">A Symfony Project by Judicaël Terrisse</div>
+                <div class="col px-0">A Symfony project by Judicaël Terrisse</div>
             </div>
         </div>
     </body>

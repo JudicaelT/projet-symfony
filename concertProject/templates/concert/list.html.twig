@@ -1,19 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ConcertController!{% endblock %}
+{% block title %}Sounds - Concerts{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>This is a list of concert :</h1>
-    <ul>
-        {% for concert in listOfConcerts %}
-           <li>{{ concert }}</li>
-        {% endfor %}
-    </ul>
+
+{# Displays the concerts that haven't ended#}
+<div class="row w-100 py-5 mt-nav mx-auto">
+  <div class="col-10 bg-greyblack shadow mx-auto">
+    <div class="row">
+
+    <h2 class="pt-5 text-center letter-spacing">COMMING CONCERTS</h2>
+    
+      {% for concert in concertList %}
+        {# Displays the concert if it hasn't ended #}
+        {% if currentDate <= concert.getDateEnd()|date('d-m-Y') %}
+        <div class="col col-sm-6 col-lg-4 px-4">
+          <div class="col-12 col-lg-10 mx-auto my-4 my-lg-5 border border-secondary square overflow-hidden">
+            <a class="w-100 h-100 text-light d-flex justify-content-center align-items-center" href="{{ path('concert_show', { 'id': concert.id }) }}">
+              {% if concert.logo != NULL %}
+              <img src="{{ asset('img/') }}{{ concert.logo }}" class="h-100" alt="Logo {{ concert.name }}">
+              {# Shows a placeholder image if the concert doesn't have one #}
+              {% else %}
+              <img src="{{ asset('img/placeholder.png') }}" class="h-100" alt="Logo {{ concert.name }}">
+              {% endif %}
+              <h3 class="position-absolute">{{ concert.name }}</h3>
+            </a>
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
 </div>
+
+
+{# Displays the concerts that have ended #}
+<div class="row w-100 py-5 mx-auto">
+  <div class="col-10 bg-greyblack shadow mx-auto">
+    <div class="row">
+
+    <h2 class="pt-5 text-center letter-spacing">PAST CONCERTS</h2>
+    
+      {% for concert in concertList %}
+        {# Displays the concert if it hasn't ended #}
+        {% if currentDate > concert.getDateEnd()|date('d-m-Y') %}
+        <div class="col col-sm-6 col-lg-4 px-4">
+          <div class="col-12 col-lg-10 mx-auto my-4 my-lg-5 border border-secondary square overflow-hidden">
+            <a class="w-100 h-100 text-light d-flex justify-content-center align-items-center" href="{{ path('concert_show', { 'id': concert.id }) }}">
+              {% if concert.logo != NULL %}
+              <img src="{{ asset('img/') }}{{ concert.logo }}" class="h-100" alt="Logo {{ concert.name }}">
+              {# Shows a placeholder image if the concert doesn't have one #}
+              {% else %}
+              <img src="{{ asset('img/placeholder.png') }}" class="h-100" alt="Logo {{ concert.name }}">
+              {% endif %}
+              <h3 class="position-absolute">{{ concert.name }}</h3>
+            </a>
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+
+
+
+<script src="{{ asset('js/Square.js') }}"></script>
 {% endblock %}

@@ -25,6 +25,10 @@
     z-index: 100;
 }
 
+.mt-nav {
+    margin-top: 95px !important;
+}
+
 .background-media {
     filter: brightness(0.5);
     z-index: -1;
@@ -69,11 +73,6 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-.offset-x-1 {
-    margin-left: 8.33333333%;
-    margin-right: 8.33333333%;
 }
 
 .card-concert {
