@@ -45,12 +45,6 @@ class Concert
     private $followers;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Band::class, inversedBy="concerts")
-     * @ORM\JoinTable(name="concert_band")
-     */
-    private $band;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Organiser::class, inversedBy="concerts")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -62,10 +56,15 @@ class Concert
      */
     private $hall;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Band::class, inversedBy="concerts")
+     */
+    private $bands;
+
     public function __construct()
     {
         $this->followers = new ArrayCollection();
-        $this->band = new ArrayCollection();
+        $this->bands = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -145,30 +144,6 @@ class Concert
         return $this;
     }
 
-    /**
-     * @return Collection|Band[]
-     */
-    public function getBand(): Collection
-    {
-        return $this->band;
-    }
-
-    public function addBand(Band $band): self
-    {
-        if (!$this->band->contains($band)) {
-            $this->band[] = $band;
-        }
-
-        return $this;
-    }
-
-    public function removeBand(Band $band): self
-    {
-        $this->band->removeElement($band);
-
-        return $this;
-    }
-
     public function getOrganiser(): ?Organiser
     {
         return $this->organiser;
@@ -189,6 +164,30 @@ class Concert
     public function setHall(?Hall $hall): self
     {
         $this->hall = $hall;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Band[]
+     */
+    public function getBands(): Collection
+    {
+        return $this->bands;
+    }
+
+    public function addBand(Band $band): self
+    {
+        if (!$this->bands->contains($band)) {
+            $this->bands[] = $band;
+        }
+
+        return $this;
+    }
+
+    public function removeBand(Band $band): self
+    {
+        $this->bands->removeElement($band);
 
         return $this;
     }

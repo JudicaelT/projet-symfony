@@ -30,21 +30,21 @@ class Band
     private $logo;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Concert::class, mappedBy="band", cascade={"persist"})
-     */
-    private $concerts;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Member::class, mappedBy="band", orphanRemoval=true, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity=Member::class, mappedBy="band", orphanRemoval=true)
      */
     private $members;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Concert::class, mappedBy="bands")
+     */
+    private $concerts;
 
     public function __construct()
     {
         $this->band_id = new ArrayCollection();
-        $this->concerts = new ArrayCollection();
         $this->band = new ArrayCollection();
         $this->members = new ArrayCollection();
+        $this->concerts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -77,33 +77,6 @@ class Band
     }
 
     /**
-     * @return Collection|Concert[]
-     */
-    public function getConcerts(): Collection
-    {
-        return $this->concerts;
-    }
-
-    public function addConcert(Concert $concert): self
-    {
-        if (!$this->concerts->contains($concert)) {
-            $this->concerts[] = $concert;
-            $concert->addBand($this);
-        }
-
-        return $this;
-    }
-
-    public function removeConcert(Concert $concert): self
-    {
-        if ($this->concerts->removeElement($concert)) {
-            $concert->removeBand($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Member[]
      */
     public function getMembers(): Collection
@@ -128,6 +101,33 @@ class Band
             if ($member->getBand() === $this) {
                 $member->setBand(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Concert[]
+     */
+    public function getConcerts(): Collection
+    {
+        return $this->concerts;
+    }
+
+    public function addConcert(Concert $concert): self
+    {
+        if (!$this->concerts->contains($concert)) {
+            $this->concerts[] = $concert;
+            $concert->addBand($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConcert(Concert $concert): self
+    {
+        if ($this->concerts->removeElement($concert)) {
+            $concert->removeBand($this);
         }
 
         return $this;

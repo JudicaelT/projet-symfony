@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ConcertController!{% endblock %}
+{% block title %}Sounds - Homepage{% endblock %}
 
 {% block body %}
 
@@ -35,7 +35,7 @@
       <hr class="hyphen me-4"> <h2>About ConcertName</h2>
     </div>
     <small class="badge bg-secondary">Date : 2022-12-10 to 2022-12-10</small> 
-    <small class="badge bg-secondary">Organiser : Judicaël Terrisse</small>
+    <small class="badge bg-secondary">Organizer : Judicaël Terrisse</small>
     <small class="badge bg-secondary">At : Sale Polivalente, Arles</small>
     <div class="row px-0 gx-0 my-4 bg-greyblack shadow">
       <div class="col-2">
@@ -70,6 +70,8 @@
   </div>
 </div>
 
+{# Displays the section if there are future concerts #}
+{% if concertList is not empty %}
 <div class="row w-100 py-5 mx-auto text-center banner-paralax" id="third-section">
   <div class="col-9 mx-auto">
     <h2>Check Out Our Concerts</h2>
@@ -77,44 +79,33 @@
   </div>
 </div>
 <div class="row w-100 py-5 mx-auto">
-  <div class="col-7 bg-greyblack shadow card-concert mx-auto">
+  <div class="col-10 col-lg-7 bg-greyblack shadow card-concert mx-auto">
     <div class="row">
-      <div class="col-4 offset-x-1 my-5 square overflow-hidden d-flex justify-content-center align-items-center">
-          <img src="{{ asset('img/placeholder.png') }}" class="h-100" alt="...">
-          <h3 class="position-absolute">Title</h3>
-      </div>
-      <div class="col-4 offset-x-1 my-5 square overflow-hidden d-flex justify-content-center align-items-center">
-          <img src="{{ asset('img/placeholder.png') }}" class="h-100" alt="...">
-          <h3 class="position-absolute">Title</h3>
-      </div>
-      <div class="col-4 offset-x-1 my-5 square overflow-hidden d-flex justify-content-center align-items-center">
-          <img src="{{ asset('img/placeholder.png') }}" class="h-100" alt="...">
-          <h3 class="position-absolute">Title</h3>
-      </div>
-      <div class="col-4 offset-x-1 my-5 square overflow-hidden d-flex justify-content-center align-items-center">
-          <img src="{{ asset('img/placeholder.png') }}" class="h-100" alt="...">
-          <h3 class="position-absolute">Title</h3>
-      </div>
+    
+      {% for concert in concertList %}
+        {# Displays the concert if it hasn't ended #}
+        {% if currentDate <= concert.getDateEnd()|date('d-m-Y') %}
+        <div class="col col-sm-6 px-4">
+          <div class="col-12 col-lg-10 mx-auto my-4 my-lg-5 border border-secondary square overflow-hidden">
+            <a class="w-100 h-100 text-light d-flex justify-content-center align-items-center" href="{{ path('concert_show', { 'id': concert.id }) }}">
+              {% if concert.logo != NULL %}
+              <img src="{{ asset('img/') }}{{ concert.logo }}" class="h-100" alt="Logo {{ concert.name }}">
+              {# Shows a placeholder image if the concert doesn't have one #}
+              {% else %}
+              <img src="{{ asset('img/placeholder.png') }}" class="h-100" alt="Logo {{ concert.name }}">
+              {% endif %}
+              <h3 class="position-absolute">{{ concert.name }}</h3>
+            </a>
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+
     </div>
   </div>
 </div>
+{% endif %}
 
-
-
-<script>
-    document.getElementById('MainPageVideo').playbackRate = 0.75;
-
-
-    resizeSquares();
-    window.addEventListener('resize', resizeSquares);
-
-    function resizeSquares() {
-      let squares = document.querySelectorAll('.square');
-
-      squares.forEach(function(square) {
-        square.style.height = square.offsetWidth+"px";
-      });
-    }
-    
-</script>
+<script src="{{ asset('js/Square.js') }}"></script>
+<script> document.getElementById('MainPageVideo').playbackRate = 0.75; </script>
 {% endblock %}

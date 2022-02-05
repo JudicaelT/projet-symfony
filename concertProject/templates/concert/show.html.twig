@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ConcertController!{% endblock %}
+
+{% block body %}
+    <div class="row w-75 py-5 mx-auto mt-nav">
+        <div class="col-5 px-4 d-flex justify-content-center">
+            <img class="img-fluid mx-auto shadow" src="{{ asset('img/') }}{{ concert.logo }}" alt="Logo {{ concert.name }}">
+        </div>
+        <div class="col-7 py-3">
+            <h2 class="fw-bolder">{{ concert.name }}</h2>
+            <h5 class="pt-3">Informations :</h5>
+            <ul>
+                <li><strong>Organiser :</strong> {{ concert.getOrganiser.getFirstName }} {{ concert.getOrganiser.getLastName }}</li>
+                <li><strong>Date :</strong> {{ concert.getDateStart|date('d-m-Y') }}
+                    {% if concert.getDateEnd != concert.getDateStart %}
+                        to {{ concert.getDateEnd|date('d-m-Y') }}
+                    {% endif %}
+                </li>
+                <li><strong>Hall :</strong> {{concert.getHall.getName}}</li>
+                <li><strong>Adress :</strong> {{concert.getHall.getAddress}}, {{concert.getHall.getCity}}, {{concert.getHall.getCountry|upper }}</li>
+            </ul>
+
+            <button class="btn bg-burple shadow">
+                <svg class="me-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+                Follow
+            </button>
+        </div>
+    </div>
+
+    <div class="row w-100 py-5 mx-auto">
+
+        {% for band in concert.bands %}
+        <div class="col-md-4">
+            <div class="card h-100 py-3 p-4 border-0 shadow">
+                <img class="img-fluid" src="{{ asset('img/') }}{{ band.logo }}">
+                <h2 class="my-3">{{ band.name }}</h2>
+            </div>
+        </div>
+        {% else %}
+        <h2 class="h1 text-center"><strong class="fw-bold">Wooops !</strong><br> It seems like this concert does not have any band</h2>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
