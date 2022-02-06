@@ -83,6 +83,11 @@ class Organiser
         return $this;
     }
 
+    public function getFullName(): ?string
+    {
+        return $this->getFirstname().' '.$this->getLastName();
+    }
+
     public function getPhone(): ?string
     {
         return $this->phone;

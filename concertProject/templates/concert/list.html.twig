@@ -4,6 +4,12 @@
 
 {% block body %}
 
+{# A button to add a new concert. Only visible to Admins#}
+<div class="row w-100 py-5 mt-nav mx-auto">
+  <div class="col text-center">
+    <a class="btn bg-burple" href="{{ path('concert_create') }}">Add a concert</a>
+  </div>
+</div>
 
 {# Displays the concerts that haven't ended#}
 <div class="row w-100 py-5 mt-nav mx-auto">
@@ -66,7 +72,11 @@
   </div>
 </div>
 
-
+{% for message in app.flashes('success') %}
+<div class="alert alert-success">
+    {{ message }}
+</div>
+{% endfor %}
 
 <script src="{{ asset('js/Square.js') }}"></script>
 {% endblock %}

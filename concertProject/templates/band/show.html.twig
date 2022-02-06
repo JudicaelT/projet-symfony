@@ -4,25 +4,27 @@
 
 {% block body %}
 
-<div class="container py-5">
-    <div class="row">
-        <div class="col">
-            <h1 class="text-center">This is a list of member :</h1>
-        </div>
-    </div>
-    <div class="row">
 
-        {% for member in band.members %}
-        <div class="col-md-4">
-            <div class="card h-100 py-3 p-4 border-0 shadow">
-                <img class="img-fluid" src="{{ asset('member.getPicture') }}">
-                <h2 class="my-3">{{ member.getFirstName }}</h2>
-            </div>
+<div class="row w-100 py-5 mt-nav mx-auto">
+  <div class="col-10 mx-auto">
+    
+      {% for member in band.members %}
+        <div class=" col-4 card shadow bg-greyblack text-center rounded-0">
+          <h5 class="card-title py-3 mb-0 letter-spacing">
+            {{ member.role }}
+          </h5>
+          {% if member.picture != NULL %}
+            <img src="{{ asset('img/placeholder.png') }}" class="card-img-top" alt="Picture {{ member.getFirstName }} {{ member.getLastName }}">
+          {% else %}
+            <img src="{{ asset('img/placeholder.png') }}" class="card-img-top" alt="Picture {{ member.getFirstName }} {{ member.getLastName }}">
+          {% endif %}
+            <h3 class="card-text fw-bolder py-5">{{ member.getFirstName }} {{ member.getLastName }}</h3>
         </div>
-        {% else %}
+      {% else %}
         <p>Wooops ! It seems like this band doesn't have any member</p>
-        {% endfor %}
-    </div>
+      {% endfor %}
+
+  </div>
 </div>
 
 {% endblock %}
