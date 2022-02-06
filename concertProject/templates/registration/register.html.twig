@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<style>
+    label {
+        padding-top: 10px;
+    }
+
+    .sf-form-select select {
+        padding: .375rem 2.25rem .375rem .75rem;
+        -moz-padding-start: calc(0.75rem - 3px);
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        background-color: red;
+        color: #212529;
+        background-color: #fff;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right .75rem center;
+        background-size: 16px 12px;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+</style>
+
+<div class="row w-100 py-5 mt-nav mx-auto">
+    <div class="col-6 mx-auto">
+    <h1>Register</h1>
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.firstName) }}
+        {{ form_row(registrationForm.lastName) }}
+        {{ form_row(registrationForm.plainPassword, {label: 'Password'}) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+
+        <button type="submit" class="btn bg-burple mt-4 w-100">Register</button>
+    {{ form_end(registrationForm) }}
+    </div>
+</div>
+{% endblock %}
