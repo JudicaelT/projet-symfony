@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class ConcertType extends AbstractType
 {
@@ -35,6 +36,11 @@ class ConcertType extends AbstractType
                 'attr' => array('class' => 'sf-form-select'),
             ])
             ->add('name', TextType::class,[
+                'attr' => array('class' => 'form-control'),
+            ])
+            ->add('logo', FileType::class,[
+                'required' => false,
+                'data_class' => null,
                 'attr' => array('class' => 'form-control'),
             ])
             ->add('hall', EntityType::class,[

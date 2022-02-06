@@ -57,9 +57,26 @@ class ConcertController extends AbstractController
         // Checks if the form has been submited
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
+            // $form->getData() contains the submitted values
+            // but, $concert has been updated
             $concert = $form->getData();
+            $file = $form['logo']->getData();
+
+            // This is the path where we're going to store the image
+            $imgFolder = $this->getParameter('kernel.project_dir').'/public/img';
+            
+            // Checks if an image has been uploaded 
+            if ($file != NULL) {
+                // Picks a randow number between 1 and 999999999.
+                // We do this to avoid overwritting the image if we upload an image that already exists.
+                $randomPrefix = rand(1, 999999999);
+
+                // Setting the image
+                $concert->setLogo($randomPrefix.$file->getClientOriginalName());
+
+                // Move the image in the 'public/img'
+                $file->move($imgFolder, $concert->getLogo());
+            }
 
             // ... perform some action, such as saving the task to the database
             // for example, if Task is a Doctrine entity, save it!
@@ -92,6 +109,15 @@ class ConcertController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $concert = $form->getData();
+
+            $file = $form['logo']->getData();
+
+            $imgFolder = $this->getParameter('kernel.project_dir').'/public/img';
+            
+            if ($file != NULL) {
+                $concert->setLogo($file->getClientOriginalName());
+                $file->move($imgFolder, $file->getClientOriginalName());
+            }
 
              $entityManager = $this->getDoctrine()->getManager();
              $entityManager->persist($concert);
