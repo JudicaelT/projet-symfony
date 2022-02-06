@@ -1,26 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ConcertController!{% endblock %}
+{% block title %}Hello bandController!{% endblock %}
 
 {% block body %}
 
-<div class="container py-5">
-    <div class="row">
-        <div class="col">
-            <h1 class="text-center">This is a list of band :</h1>
-        </div>
-    </div>
-    <div class="row">
-        {% for band in band_list %}
-        <div class="col-md-4">
-            <div class="card h-100 py-3 p-4 border-0 shadow">
-                <img class="img-fluid" src="{{ asset(band.logo) }}">
-                <h2 class="my-3">{{ band.name }}</h2>
-                <a class="btn btn-primary" href="{{ path('band_show', { 'id': band.id }) }}">SHOW</a>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+<div class="row w-100 py-5 mt-nav mx-auto">
+  <div class="col text-center">
+    {# <a class="btn bg-burple" href="{{ path('band_create') }}">Add a band</a> #}
+  </div>
 </div>
+
+<div class="row w-100 py-5 mt-nav mx-auto">
+  <div class="col-10 bg-greyblack shadow mx-auto">
+    <div class="row">
+    
+      {% for band in bandList %}
+        <div class="col col-sm-6 col-lg-4 px-4">
+          <div class="col-12 col-lg-10 mx-auto my-4 my-lg-5 border border-secondary square overflow-hidden">
+            <a class="w-100 h-100 text-light d-flex justify-content-center align-items-center" href="{{ path('band_show', { 'id': band.id }) }}">
+              {% if band.logo != NULL %}
+              <img src="{{ asset('img/') }}{{ band.logo }}" class="h-100" alt="Logo {{ band.name }}">
+              {# Shows a placeholder image if the band doesn't have one #}
+              {% else %}
+              <img src="{{ asset('img/placeholder.png') }}" class="h-100" alt="Logo {{ band.name }}">
+              {% endif %}
+              <h3 class="position-absolute">{{ band.name }}</h3>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+
+{% for message in app.flashes('success') %}
+<div class="alert alert-success">
+    {{ message }}
+</div>
+{% endfor %}
 
 {% endblock %}

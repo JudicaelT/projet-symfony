@@ -26,7 +26,7 @@ class BandController extends AbstractController
     {
         return $this->render('band/list.html.twig', [
             'controller_name' => 'BandController',
-            'band_list' => $bandRepository->findAll(),
+            'bandList' => $bandRepository->findAll(),
         ]);
     }
 

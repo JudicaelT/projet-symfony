@@ -148,4 +148,9 @@ class Hall
 
         return $this;
     }
+
+    public function getFullAdress(): ?string
+    {
+        return $this->getName().', '.$this->getAddress().', '.$this->getCity().', '.$this->getCountry();
+    }
 }
