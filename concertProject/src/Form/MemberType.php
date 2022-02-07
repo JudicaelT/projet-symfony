@@ -12,6 +12,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
@@ -29,6 +31,14 @@ class MemberType extends AbstractType
             ->add('pseudo', TextType::class,[
                 'required' => false,
                 'attr' => array('class' => 'form-control'),
+            ])
+            ->add('birthDate', DateType::class,[
+                'widget' => 'choice',
+                'format' => 'dd / MM / yyyy',
+                'years' => range(date('Y')-100, date('Y')),
+                'months' => range(date('m'), 12),
+                'days' => range(date('d'), 31),
+                'attr' => array('class' => 'sf-form-select')
             ])
             ->add('role', TextType::class,[
                 'attr' => array('class' => 'form-control'),

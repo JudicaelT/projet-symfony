@@ -48,6 +48,11 @@ class Member
      */
     private $band;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $birthDate;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +80,11 @@ class Member
         $this->last_name = $last_name;
 
         return $this;
+    }
+
+    public function getFullName(): ?string
+    {
+        return $this->first_name.' '.$this->last_name;
     }
 
     public function getPseudo(): ?string
@@ -121,6 +131,18 @@ class Member
     public function setBand(?Band $band): self
     {
         $this->band = $band;
+
+        return $this;
+    }
+
+    public function getBirthDate(): ?\DateTimeInterface
+    {
+        return $this->birthDate;
+    }
+
+    public function setBirthDate(?\DateTimeInterface $birthDate): self
+    {
+        $this->birthDate = $birthDate;
 
         return $this;
     }

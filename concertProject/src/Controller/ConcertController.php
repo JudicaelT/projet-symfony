@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,7 +41,10 @@ class ConcertController extends AbstractController
     }
 
     /**
+     * Displays the admin backoffice (concert route)
+     * 
      * @Route("concert/admin", name="concert_admin")
+     * @isGranted("ROLE_ADMIN")
      */
     public function admin(ConcertRepository $concertRepository): Response
     {
@@ -56,6 +60,7 @@ class ConcertController extends AbstractController
      * Create a concert
      * 
      * @Route("/concert/create", name="concert_create")
+     * @isGranted("ROLE_ADMIN")
      */
     public function createConcert(Request $request): Response
     {
@@ -109,6 +114,7 @@ class ConcertController extends AbstractController
      * Update a concert
      * 
      * @Route("/concert/update/{id}", name="concert_update")
+     * @isGranted("ROLE_ADMIN")
      */
     public function updateConcert(Request $request, Concert $concert): Response
     {
@@ -148,6 +154,7 @@ class ConcertController extends AbstractController
      * Delete a concert
      * 
      * @Route("concert/delete/{id}", name="concert_delete")
+     * @isGranted("ROLE_ADMIN")
      */
     public function deleteConcert(Request $request, Concert $concert): Response
     {

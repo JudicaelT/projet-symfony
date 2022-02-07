@@ -12,12 +12,13 @@ class UserFixture extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        // Creating an admin with datafixtures
         $user = new User();
-        $user->setEmail('judicael.terrisse@etu.univ-amu.fr')
-             ->setRoles(['User'])
+        $user->setEmail('admin@gmail.com')
+             ->setRoles(['ROLE_ADMIN'])
              ->setFirstName('Toto')
              ->setLastName('Duzero')
-             ->setPassword(password_hash('pass', PASSWORD_BCRYPT));
+             ->setPassword(password_hash('password', PASSWORD_BCRYPT));
 
         $manager->persist($user);
         $manager->flush();

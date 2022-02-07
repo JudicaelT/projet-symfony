@@ -29,6 +29,7 @@
             <th scope="col">pseudo</th>
             <th scope="col">role</th>
             <th scope="col">picture</th>
+            <th scope="col">birthDate</th>
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
@@ -43,6 +44,7 @@
             <td>{{ member.pseudo }}</td>
             <td>{{ member.getRole }}</td>
             <td>{{ member.getPicture }}</td>
+            <td>{{ member.getBirthDate|date('d-m-Y') }}</td>
             <td>
                <a class="btn btn-danger shadow" href="{{ path('member_delete', { 'id': member.id }) }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">

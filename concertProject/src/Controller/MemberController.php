@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted; 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,7 +24,10 @@ class MemberController extends AbstractController
     }
 
     /**
+     * Displays the admin backoffice (member route)
+     * 
      * @Route("member/admin", name="member_admin")
+     * @isGranted("ROLE_ADMIN") 
      */
     public function admin(MemberRepository $memberRepository): Response
     {
@@ -37,6 +41,7 @@ class MemberController extends AbstractController
      * Create a member
      * 
      * @Route("/member/create", name="member_create")
+     * @isGranted("ROLE_ADMIN") 
      */
     public function createMember(Request $request): Response
     {
@@ -90,6 +95,7 @@ class MemberController extends AbstractController
      * Update a member
      * 
      * @Route("/member/update/{id}", name="member_update")
+     * @isGranted("ROLE_ADMIN") 
      */
     public function updateMember(Request $request, Member $member): Response
     {
@@ -129,6 +135,7 @@ class MemberController extends AbstractController
      * Delete a member
      * 
      * @Route("member/delete/{id}", name="member_delete")
+     * @isGranted("ROLE_ADMIN")
      */
     public function deleteMember(Request $request, Member $member): Response
     {

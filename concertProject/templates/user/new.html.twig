@@ -34,26 +34,17 @@
 <div class="row w-100 py-5 mt-nav mx-auto">
     <div class="col-6 mx-auto">
         {{ form_start(form) }}
-            {{ form_label(form.first_name, 'First Name :', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.first_name) }}
+            {{ form_label(form.email, 'Email :', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.email) }}
 
-            {{ form_label(form.last_name, 'Last Name :', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.last_name) }}
+            {{ form_label(form.password, 'Password :', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.password) }}
 
-            {{ form_label(form.pseudo, 'Pseudo :', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.pseudo) }}
+            {{ form_label(form.firstName, 'First Name :', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.firstName) }}
 
-            {{ form_label(form.birthDate, 'Birth Date :', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.birthDate) }}
-
-            {{ form_label(form.role, 'Role :', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.role) }}
-
-            {{ form_label(form.picture, 'Picture :', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.picture) }}
-
-            {{ form_label(form.band, 'Band :', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.band) }}
+            {{ form_label(form.lastName, 'Last Name :', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.lastName) }}
 
             {{ form_widget(form.save, {'label_attr': {'class': 'btn'}}) }}
         {{ form_end(form) }}
