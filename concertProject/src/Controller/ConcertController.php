@@ -3,9 +3,6 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -36,6 +33,18 @@ class ConcertController extends AbstractController
     public function list(ConcertRepository $concertRepository): Response
     {
         return $this->render('concert/list.html.twig', [
+            'controller_name' => 'ConcertController',
+            'concertList' => $concertRepository->findAll(),
+            'currentDate' => date('d-m-Y')
+        ]);
+    }
+
+    /**
+     * @Route("concert/admin", name="concert_admin")
+     */
+    public function admin(ConcertRepository $concertRepository): Response
+    {
+        return $this->render('concert/admin.html.twig', [
             'controller_name' => 'ConcertController',
             'concertList' => $concertRepository->findAll(),
             'currentDate' => date('d-m-Y')
@@ -86,7 +95,7 @@ class ConcertController extends AbstractController
 
             $this->addFlash('Success', 'Success : concert created !');
 
-            return $this->redirectToRoute('concerts');
+            return $this->redirectToRoute('concert_admin');
         }
 
         return $this->render('concert/new.html.twig', [
@@ -125,7 +134,7 @@ class ConcertController extends AbstractController
 
             $this->addFlash('Success', 'Success : concert updated !');
 
-            return $this->redirectToRoute('concerts');
+            return $this->redirectToRoute('concert_admin');
         }
 
         return $this->render('concert/new.html.twig', [
@@ -148,7 +157,7 @@ class ConcertController extends AbstractController
 
             $this->addFlash('Success', 'Success : concert removed !');
 
-            return $this->redirectToRoute('concerts');
+            return $this->redirectToRoute('concert_admin');
     }
 
 

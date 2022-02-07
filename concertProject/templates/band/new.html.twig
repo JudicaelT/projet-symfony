@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sounds - Create a concert{% endblock %}
+{% block title %}Sounds - Create a band{% endblock %}
 
 {% block body %}
 
@@ -39,21 +39,6 @@
 
             {{ form_label(form.logo, 'Logo :', {'label_attr': {'class': 'form-label'}}) }}
             {{ form_widget(form.logo) }}
-
-            {{ form_label(form.date_start, 'Starting Date (dd/mm/yy) :', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.date_start) }}
-
-            {{ form_label(form.date_end, 'Ending Date (dd/mm/yy) :', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.date_end) }}
-
-            {{ form_label(form.hall, 'Hall :', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.hall) }}
-
-            {{ form_label(form.organiser, 'Organiser :', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.organiser) }}
-
-            {{ form_label(form.bands, 'Participating bands :', {'label_attr': {'class': 'form-label'}}) }}
-            {{ form_widget(form.bands) }}
 
             {{ form_widget(form.save, {'label_attr': {'class': 'btn'}}) }}
         {{ form_end(form) }}

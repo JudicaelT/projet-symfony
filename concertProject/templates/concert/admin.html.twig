@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sounds - Admin Concert{% endblock %}
+
+{% block body %}
+
+<div class="row w-100 py-5 mt-nav mx-auto">
+  <div class="col-10 mx-auto">
+    <nav class="nav nav-pills flex-column flex-sm-row">
+      <a class="flex-sm-fill text-sm-center bg-burple nav-link active" aria-current="page" href="{{ path('concert_admin') }}">Concert</a>
+      <a class="flex-sm-fill text-sm-center nav-link" href="{{ path('band_admin') }}">Band</a>
+      <a class="flex-sm-fill text-sm-center nav-link" href="{{ path('member_admin') }}">Member</a>
+    </nav>
+  </div>
+</div>
+
+<div class="row w-100 py-5 mx-auto">
+  <div class="col-10 bg-greyblack shadow mx-auto">
+    
+    <div class="row table-responsive">
+
+      <table class="table text-light mb-0">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">date_start</th>
+            <th scope="col">date_end</th>
+            <th scope="col">logo</th>
+            <th scope="col">organiser</th>
+            <th scope="col">hall</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for concert in concertList %}
+          <tr>
+            <th scope="row">
+              <a href="{{ path('concert_show', { 'id': concert.id }) }}">{{ concert.id }}</a>
+            </th>
+            <td>{{ concert.getName }}</td>
+            <td>{{ concert.getDateStart|date('d-m-Y') }}</td>
+            <td>{{ concert.getDateEnd|date('d-m-Y') }}</td>
+            <td>{{ concert.getLogo }}</td>
+            <td>{{ concert.getOrganiser.getFullName }}</td>
+            <td>{{ concert.getHall.getName }}</td>
+            <td>
+              <a class="btn btn-danger shadow" href="{{ path('concert_delete', { 'id': concert.id }) }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                </svg>
+                Remove
+              </a>
+            </td>
+            <td>
+              <a class="btn btn-success shadow" href="{{ path('concert_update', { 'id': concert.id }) }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg>
+                Edit
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+          <tr>
+            <td colspan="9" class="border-bottom-0">
+              <a class="btn bg-burple w-100" href="{{ path('concert_create') }}">Add a concert</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
+
+{% for message in app.flashes('success') %}
+<div class="alert alert-success">
+    {{ message }}
+</div>
+{% endfor %}
+
+<script src="{{ asset('js/Square.js') }}"></script>
+{% endblock %}

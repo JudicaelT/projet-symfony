@@ -16,6 +16,8 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 class RegistrationController extends AbstractController
 {
     /**
+     * Registers a new 'User'
+     * 
      * @Route("/register", name="app_register")
      */
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, GuardAuthenticatorHandler $guardHandler, AppCustomAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
