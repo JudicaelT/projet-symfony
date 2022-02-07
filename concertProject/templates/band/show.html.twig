@@ -8,17 +8,29 @@
 <div class="row w-100 py-5 mt-nav mx-auto">
   <div class="col-10 mx-auto">
     
+      {# displays the members of a band #}
       {% for member in band.members %}
         <div class=" col-4 card shadow bg-greyblack text-center rounded-0">
           <h5 class="card-title py-3 mb-0 letter-spacing">
             {{ member.role }}
           </h5>
+          {# displays picture if it exists ; display placeholder image instead #}
           {% if member.picture != NULL %}
-            <img src="{{ asset('img/placeholder.png') }}" class="card-img-top" alt="Picture {{ member.getFirstName }} {{ member.getLastName }}">
+            <img src="{{ asset('img/') }}{{ member.getPicture }}" class="card-img-top" alt="Picture {{ member.getFullName }}">
           {% else %}
-            <img src="{{ asset('img/placeholder.png') }}" class="card-img-top" alt="Picture {{ member.getFirstName }} {{ member.getLastName }}">
+            <img src="{{ asset('img/placeholder.png') }}" class="card-img-top" alt="Picture {{ member.getFullName }}">
           {% endif %}
-            <h3 class="card-text fw-bolder py-5">{{ member.getFirstName }} {{ member.getLastName }}</h3>
+          {# displays pseudo if it exists ; display full name instead #}
+          {% if member.getPseudo != NULL %}
+            <h3 class="card-text fw-bolder py-5">{{ member.getPseudo }}</h3>
+          {% else %}
+            <h3 class="card-text fw-bolder py-5">{{ member.getFullName }}</h3>
+          {% endif %}
+
+          {# displays birth date if it exists #}
+          {% if member.getBirthDate != NULL %}
+            <small class="pb-4">{{ member.getBirthDate|date('d-m-Y') }}</small>
+          {% endif %}
         </div>
       {% else %}
         <p>Wooops ! It seems like this band doesn't have any member</p>
@@ -27,4 +39,31 @@
   </div>
 </div>
 
+<div class="row w-100 mb-5 mx-auto">
+  <div class="col-10 bg-greyblack shadow mx-auto">
+    <div class="row">
+
+    <h2 class="pt-5 text-center letter-spacing">THEIR CONCERTS</h2>
+
+    {# displays the concerts of a band #}
+    {% for concert in band.concerts %}
+      <div class="col col-sm-6 col-lg-4 px-4">
+        <div class="col-12 col-lg-10 mx-auto my-4 my-lg-5 border border-secondary square overflow-hidden">
+          <a class="w-100 h-100 text-light d-flex justify-content-center align-items-center" href="{{ path('concert_show', { 'id': concert.id }) }}">
+            {% if concert.logo != NULL %}
+            <img src="{{ asset('img/') }}{{ concert.logo }}" class="h-100" alt="Logo {{ concert.name }}">
+            {% else %}
+            <img src="{{ asset('img/placeholder.png') }}" class="h-100" alt="Logo {{ concert.name }}">
+            {% endif %}
+            <h3 class="position-absolute">{{ concert.name }}</h3>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+
+    </div>
+  </div>
+</div>
+
+<script src="{{ asset('js/Square.js') }}"></script>
 {% endblock %}

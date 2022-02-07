@@ -21,16 +21,22 @@
     <body class="bg-deepgrey text-light">
         <div class="row fixed-top" id="header">
             <div class="col px-0">
+                {% if is_granted('ROLE_ADMIN') %}
                 <div class="bg-secondary text-center">
                     <a href="{{ path('concert_admin') }}" class="text-light">Access Admin Backoffice</a>
                 </div>
+                {% endif %}
                 <nav class="navbar navbar-light border-bottom border-light">
                     <ul class="navbar-nav mx-auto flex-row justify-content-center align-items-center">
                         <li class="nav-item fw-bold px-3">
                             <a class="nav-link text-light" aria-current="page" href="{{ path('concert') }}">Home</a>
                         </li>
                         <li class="nav-item fw-bold px-3">
+                        {% if is_granted('ROLE_USER') %}
+                            <a class="nav-link text-light" aria-current="page" href="{{ path('user_profile', { 'id': app.user.id }) }}">Hello {{ app.user.getFirstName }}</a>
+                        {% else %}
                             <a class="nav-link text-light" aria-current="page" href="{{ path('app_login') }}">Login</a>
+                        {% endif %}
                         </li>
 
                         <li class="nav-item px-5 w-25">

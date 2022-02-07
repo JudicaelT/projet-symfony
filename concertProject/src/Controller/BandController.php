@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,7 +35,10 @@ class BandController extends AbstractController
     }
 
     /**
+     * Displays the admin backoffice (band route)
+     * 
      * @Route("band/admin", name="band_admin")
+     * @isGranted("ROLE_ADMIN")
      */
     public function admin(BandRepository $bandRepository): Response
     {
@@ -48,6 +52,7 @@ class BandController extends AbstractController
      * Create a band
      * 
      * @Route("/band/create", name="band_create")
+     * @isGranted("ROLE_ADMIN")
      */
     public function createBand(Request $request): Response
     {
@@ -101,6 +106,7 @@ class BandController extends AbstractController
      * Update a band
      * 
      * @Route("/band/update/{id}", name="band_update")
+     * @isGranted("ROLE_ADMIN")
      */
     public function updateBand(Request $request, Band $band): Response
     {
@@ -140,6 +146,7 @@ class BandController extends AbstractController
      * Delete a band
      * 
      * @Route("band/delete/{id}", name="band_delete")
+     * @isGranted("ROLE_ADMIN")
      */
     public function deleteBand(Request $request, Band $band): Response
     {
